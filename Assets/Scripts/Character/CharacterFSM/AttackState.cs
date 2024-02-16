@@ -14,13 +14,13 @@ public class AttackState : CharacterState
 
     private float m_currentStateTimer = 0.0f;
 
-    private AudioSource m_clip;
+    //private AudioSource m_clip;
 
-    public AttackState(AudioSource clip)
-    {
-        m_clip = clip;
-        m_efxState = EFXState.EAttack;
-    }
+    //public AttackState(AudioSource clip)
+    //{
+    //    m_clip = clip;
+    //    m_efxState = EFXState.EAttack;
+    //}
 
     /**
      * if enemies are closing and J is pressed then enter attack state
@@ -52,10 +52,10 @@ public class AttackState : CharacterState
     public override void OnEnter()
     {
         Debug.Log("Enter state: AttackState\n");
-        if (m_clip != null)
-        {
-            m_clip.Play();
-        }
+        //if (m_clip != null)
+        //{
+        //    m_clip.Play();
+        //}
         //m_stateMachine.EffectController.PlaySoundFX(GetEFXState(), m_stateMachine.transform.position, 1.0f);
         //m_stateMachine.EffectController.PlayParticleFX(GetEFXState(), m_stateMachine.transform.position);
         Time.timeScale = 0.6f;

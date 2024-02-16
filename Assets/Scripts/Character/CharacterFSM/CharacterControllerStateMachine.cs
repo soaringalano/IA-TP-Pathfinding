@@ -89,7 +89,7 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
     public List<AudioSource> m_audioSources;
 
     [SerializeField]
-    public CharacterEffectController EffectController;
+    //public CharacterEffectController EffectController;
 
     protected override void Awake()
     {
@@ -106,9 +106,9 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
         m_possibleStates.Add(new JumpState(m_audioSources[1]));
         //m_possibleStates.Add(new InAirState());
         //m_possibleStates.Add(new OnGroundState(m_audioSources[2]));
-        m_possibleStates.Add(new AttackState(m_audioSources[3]));
+        //m_possibleStates.Add(new AttackState(m_audioSources[3]));
         //m_possibleStates.Add(new HitState(m_audioSources[4]));
-        m_possibleStates.Add(new VictoryState(m_audioSources[5]));
+        //m_possibleStates.Add(new VictoryState(m_audioSources[5]));
     }
 
     // Start is called before the first frame update
