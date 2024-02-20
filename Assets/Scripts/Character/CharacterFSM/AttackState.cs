@@ -46,7 +46,7 @@ public class AttackState : CharacterState
 
     public override void OnStart()
     {
-        
+        Debug.Log("OnStart: AttackState\n");
     }
 
     public override void OnEnter()

@@ -53,17 +53,16 @@ public class CameraController : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, desiredPosition, m_lerpSpeed);
     }
 
+
     private void UpdateHorizontalMovements()
     {
         float currentAngleX = Input.GetAxis("Mouse X") * m_rotationSpeed;
         transform.RotateAround(m_objectToLookAt.position, m_objectToLookAt.up, currentAngleX);
         //character's last rotation value
         ////Quaternion rotation = m_objectToLookAt.rotation;
-
         // rotate character
         ////float currentAngleX = Input.GetAxis("Mouse X") * m_rotationSpeed;
         ////m_objectToLookAt.transform.Rotate(0, currentAngleX, 0);
-
     }
 
     /**

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Unity.VisualScripting;
-//using UnityEditorInternal;
 using UnityEngine;
-//using UnityEngine.Rendering.Universal.Internal;
 
 public class CharacterControllerStateMachine : AbstractStateMachine<CharacterState>, IDamageable
 {
+    //animator vars
     public const string KEY_STATUS_BOOL_TOUCHGROUND = "TouchGround";
-
     public const string KEY_STATUS_FLOAT_MOVEX = "MoveX";
-
     public const string KEY_STATUS_FLOAT_MOVEY = "MoveY";
 
     public const float TO_RADIAN = Mathf.PI / 180;
@@ -99,6 +95,7 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
         m_newLife = m_life;
     }
 
+
     protected override void CreatePossibleStates()
     {
         m_possibleStates = new List<CharacterState>();
@@ -111,7 +108,6 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
         //m_possibleStates.Add(new VictoryState(m_audioSources[5]));
     }
 
-    // Start is called before the first frame update
     protected override void Start()
     {
         Camera = Camera.main;
@@ -127,12 +123,15 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
 
     protected override void Update()
     {
-        /*if(!m_floorTrigger.IsOnFloor && m_currentState is not JumpState)
-        {
-            ActivateInAirTrigger();
-        }
-        m_currentState.OnUpdate();
-        TryStateTransition();*/
+        /*
+            if(!m_floorTrigger.IsOnFloor && m_currentState is not JumpState)
+            {
+                ActivateInAirTrigger();
+            }
+            m_currentState.OnUpdate();
+            TryStateTransition();
+        */
+
         UpdateAnimatorKeyValues();
         base.Update();
     }
@@ -144,10 +143,8 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
         Animator.SetFloat("MoveX", CurrentRelativeVelocity.x / GetCurrentMaxSpeed());
         Animator.SetFloat("MoveY", CurrentRelativeVelocity.y / GetCurrentMaxSpeed());
         UpdateEnemies();
-
     }
 
-    // Update is called once per frame
     protected override void FixedUpdate()
     {
         //Debug.Log("Current state:" + m_currentState.GetType());
@@ -243,6 +240,7 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
     {
         return m_floorTrigger.IsOnFloor;
     }
+
     GameObject[] FindEnemies()
     {
         var goArray = FindObjectsOfType(typeof(GameObject)) as GameObject[];
@@ -260,28 +258,26 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
     public List<Collider> GetAttackableEnemies()
     {
         /**
-         * ray cast detect surrounding objects, each object should be collide trigger and implements trigger method, for example, wall's trigger
-         * is do nothing but enemy trigger will cause loss of life to both
+         * ray cast detect surrounding objects, each object should be collide trigger and implements trigger method, 
+         * for example, wall's trigger is do nothing but enemy trigger will cause loss of life to both
          */
+
         if(m_enemies == null || m_enemies.Length == 0)
-        {
             return null;
-        }
+        
         List<Collider> ret = new List<Collider>();
+
         foreach (GameObject enemy in m_enemies)
         {
             if (enemy == null || enemy.IsDestroyed())
-            {
-                //Debug.Log("This enemy object has already been destroyed");
                 continue;
-            }
+
             Vector3 v3 = enemy.transform.position - RB.transform.position;
-            //Debug.Log("Enemy distance:" + v3.x + "," + v3.y + "," + v3.z);
             float angle = Vector3.Angle(v3 * TO_RADIAN, RB.transform.forward);
+
             if (angle <= m_secureFieldOfView.y && v3.magnitude <= m_secureFieldOfView.x)
-            {
                 ret.Add(enemy.GetComponent<Collider>());
-            }
+
         }
         return ret.Count == 0 ? null : ret;
     }
@@ -305,7 +301,6 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
 
     public float GetCurrentMaxSpeed()
     {
-
         if (Mathf.Approximately(CurrentDirectionalInputs.magnitude, 0))
         {
             return MaxForwardVelocity;
@@ -329,31 +324,19 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
 
     public void SetDirectionalInputs()
     {
-
         if(!AcceptInput)
-        {
             return;
-        }
 
         CurrentDirectionalInputs = Vector2.zero;
 
         if (Input.GetKey(KeyCode.W))
-        {
             CurrentDirectionalInputs += Vector2.up;
-        }
         if (Input.GetKey(KeyCode.S))
-        {
             CurrentDirectionalInputs += Vector2.down;
-        }
         if (Input.GetKey(KeyCode.A))
-        {
             CurrentDirectionalInputs += Vector2.left;
-        }
         if (Input.GetKey(KeyCode.D))
-        {
             CurrentDirectionalInputs += Vector2.right;
-        }
-        //Debug.Log("CurrentDirectionalInputs : " + CurrentDirectionalInputs);
     }
 
     public void EnableTouchGround()

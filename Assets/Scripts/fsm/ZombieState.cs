@@ -1,12 +1,14 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ZombieState : IState
 {
     protected ZombieFSM m_stateMachine;
-
+   
     public void OnStart(ZombieFSM stateMachine)
     {
         m_stateMachine = stateMachine;
+       
     }
 
     public virtual bool CanEnter(IState currentState)

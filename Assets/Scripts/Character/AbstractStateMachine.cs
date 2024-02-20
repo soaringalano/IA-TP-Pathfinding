@@ -40,7 +40,6 @@ public class AbstractStateMachine<T> : MonoBehaviour where T : IState
 
     }
 
-
     protected void TryStateTransition()
     {
         if (!m_currentState.CanExit())
