@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZombieFSM : AbstractFSM<ZombieState>
+public class ZombieFSM : AbstractStateMachine<ZombieState>
 {
     public Rigidbody RB { get; private set; }
     public Animator ZombieAnimator { get; private set; }
