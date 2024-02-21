@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ChasingState : ZombieState
 {
-    private float m_arrivedThreshold = 1f;
+    private float m_arrivedThreshold = 0.5f;
 
     public override void OnStart()
     { 
@@ -34,13 +34,36 @@ public class ChasingState : ZombieState
     public override void OnUpdate()
     {
         //Debug.Log("Chasing State OnUpdate");
-        if (!m_stateMachine.HasReachedDestination(m_stateMachine.m_preyPosition, m_arrivedThreshold)) return;
+
+        Debug.Log("Chasing State OnUpdate, has not reach prey: " + !m_stateMachine.HasReachedDestination(m_stateMachine.m_preyPosition, m_arrivedThreshold) + " prey in reach: " + m_stateMachine.m_isPreyInReach);
+        //if (!m_stateMachine.HasReachedDestination(m_stateMachine.m_preyPosition, m_arrivedThreshold) || m_stateMachine.m_isPreyInReach) return;
+        //GetToPrey();
+        //``````````````````````````````````````````````````````
+        if (m_stateMachine.HasReachedDestination(m_stateMachine.m_preyPosition, m_arrivedThreshold))
+        {
+            if (!m_stateMachine.m_isPreyInReach)
+            {
+                GetToPrey();
+            }
+
+            return;
+        }
+
         GetToPrey();
+        //```````````````````````````````````````````````````````
+
+        //if (!m_stateMachine.HasReachedDestination(m_stateMachine.m_preyPosition, m_arrivedThreshold) && (m_stateMachine.m_isPreyInReach)) return;
+
+        //GetToPrey();
     }
 
     private void GetToPrey()
     {
+        Debug.Log("Chasing State GetToPrey");
+        m_stateMachine.m_agent.isStopped = true;
+        m_stateMachine.m_agent.ResetPath();
         m_stateMachine.m_agent.SetDestination(m_stateMachine.m_preyPosition);
+        m_stateMachine.m_agent.isStopped = false;
     }
 
     public override void OnFixedUpdate()
