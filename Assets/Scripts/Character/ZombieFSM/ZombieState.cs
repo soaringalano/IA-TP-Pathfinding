@@ -8,7 +8,6 @@ public class ZombieState : IState
     public void OnStart(ZombieFSM stateMachine)
     {
         m_stateMachine = stateMachine;
-       
     }
 
     public virtual bool CanEnter(IState currentState)

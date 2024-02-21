@@ -1,7 +1,6 @@
 ﻿
 public interface IState
 {
-
     public void OnStart();
     public void OnEnter();
     public void OnUpdate();

@@ -7,11 +7,14 @@ public class ZombieFSM : AbstractStateMachine<ZombieState>
     public Rigidbody RB { get; private set; }
     public Animator ZombieAnimator { get; private set; }
 
-    public bool m_isPreyInSight = false;
-    public bool m_isPreyInReach = false;
-
     public Vector3 m_preyPosition = Vector3.zero;
     public Vector3 m_newDirection = Vector3.zero;
+
+    public float m_health = 100f;
+    public const float MIN_HEALTH_TRIGGER_FEAR = 80f;
+
+    public bool m_isPreyInSight = false;
+    public bool m_isPreyInReach = false;
 
     public NavMeshAgent m_agent;
 
@@ -24,16 +27,14 @@ public class ZombieFSM : AbstractStateMachine<ZombieState>
         m_agent = GetComponent<NavMeshAgent>();
 
         if (RB == null) Debug.LogError("RB is null");
-        //ZombieAnimator = GetComponentInChildren<Animator>();
-        //if (ZombieAnimator == null) Debug.LogError("ZombieAnimator is null");
 
         foreach (ZombieState state in m_possibleStates)
         {
-            state.OnStart(this);//tem que passar um state
+            state.OnStart(this);
         }
  
         base.Start();
-        m_currentState = m_possibleStates[0];//roaming state in this case
+        m_currentState = m_possibleStates[0];
         m_currentState.OnEnter();
     }
 
@@ -41,11 +42,10 @@ public class ZombieFSM : AbstractStateMachine<ZombieState>
     protected override void CreatePossibleStates()
     {
         m_possibleStates = new List<ZombieState>();
-        //we start with the roaming state
-        m_possibleStates.Add(new RoamingState());
-        m_possibleStates.Add(new ChasingState());
+        m_possibleStates.Add(new ZombieRoamingState());
+        m_possibleStates.Add(new ZombieChasingState());
         m_possibleStates.Add(new ZombieAttackState());
-        //m_possibleStates.Add(new ZombieRunawayState());
+        m_possibleStates.Add(new ZombieFleeingState());
     }
 
     public bool HasReachedDestination(Vector3 destination, float threshold)

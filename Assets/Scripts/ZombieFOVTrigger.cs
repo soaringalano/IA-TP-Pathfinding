@@ -29,14 +29,14 @@ public class ZombieFOVTrigger : MonoBehaviour
         // Check if the outer collider exits the trigger
         if (transform.name == "OuterFOV" || transform.name == "FrontFOV")
         {
-            Debug.Log("Far FOV exited.");
+            //Debug.Log("Far FOV exited.");
             GetComponentInParent<ZombieFSM>().m_isPreyInSight = false;
         }
 
         // Check if the inner collider exits the trigger
         if (transform.name == "InnerFOV")
         {
-            Debug.Log("Near FOV exited.");
+            //Debug.Log("Near FOV exited.");
             GetComponentInParent<ZombieFSM>().m_isPreyInReach = false;
         }
     }

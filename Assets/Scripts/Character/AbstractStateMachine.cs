@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,11 +47,9 @@ public class AbstractStateMachine<T> : MonoBehaviour where T : IState
             return;
         }
 
-        //Je PEUX quitter le state actuel
         foreach (var state in m_possibleStates)
-        //for(int i=0;i<m_possibleStates.Count;i++)
         {
-            //var state = m_possibleStates[(i+1) % m_possibleStates.Count];
+            Debug.Log("State: " + state.GetType());
             if (m_currentState.Equals(state))
             {
                 continue;

@@ -4,37 +4,39 @@ public class ZombieAttackState : ZombieState
 {
     public override void OnStart()
     { 
-        Debug.Log("Idle State State"); 
+        //Debug.Log("ZombieAttackState OnStart()"); 
     }
 
     public override bool CanEnter(IState currentState)
     { 
-        return m_stateMachine.m_isPreyInReach; 
+        return m_stateMachine.m_isPreyInReach &&
+            currentState is not ZombieFleeingState; 
     }
 
     public override bool CanExit()
     { 
-        return !m_stateMachine.m_isPreyInReach;
+        return !m_stateMachine.m_isPreyInReach ||
+            m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR;
     }
 
     public override void OnEnter()
     { 
-        Debug.Log("Entering Attack State"); 
+        //Debug.Log("Entering Attack State"); 
     }
 
     public override void OnExit()
     { 
-        Debug.Log("Exiting Attack State"); 
+        //Debug.Log("Exiting Attack State"); 
     }
 
     public override void OnUpdate() 
     { 
-        Debug.Log("Atack State OnUpdate"); 
+        //Debug.Log("Atack State OnUpdate"); 
     }
 
     public override void OnFixedUpdate()
     { 
-        Debug.Log("Idle State OnFixedUpdate"); 
+        //Debug.Log("ZombieAttackState OnFixedUpdate"); 
     }
 
 }

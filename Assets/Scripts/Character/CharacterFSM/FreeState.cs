@@ -15,13 +15,13 @@ public class FreeState : CharacterState
 
     public override void OnEnter()
     {
-        Debug.Log("Entering free state");
+        //Debug.Log("Entering free state");
         base.OnEnter();
     }
 
     public override void OnExit()
     {
-        Debug.Log("Exiting free state");
+        //Debug.Log("Exiting free state");
         base.OnExit();
         /*
             if (m_clip != null)

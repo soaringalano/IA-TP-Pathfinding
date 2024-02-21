@@ -46,12 +46,12 @@ public class AttackState : CharacterState
 
     public override void OnStart()
     {
-        Debug.Log("OnStart: AttackState\n");
+        //Debug.Log("OnStart: AttackState\n");
     }
 
     public override void OnEnter()
     {
-        Debug.Log("Enter state: AttackState\n");
+        //Debug.Log("Enter state: AttackState\n");
         //if (m_clip != null)
         //{
         //    m_clip.Play();

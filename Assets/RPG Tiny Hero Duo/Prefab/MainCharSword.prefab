@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 708529145083992416}
   - component: {fileID: 3328657967434100138}
   - component: {fileID: 7460849118093527522}
+  - component: {fileID: 6323078426675090505}
   m_Layer: 0
-  m_Name: OHS06PBR
+  m_Name: MainCharSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,9 +100,21 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.2451477, y: 1.1270846, z: 0.08871154}
   m_Center: {x: 0.00075408444, y: 0.7024536, z: 2.6418125e-15}
+--- !u!114 &6323078426675090505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832907126045494399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fe8aa013b883c44a53cdad00cdd411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

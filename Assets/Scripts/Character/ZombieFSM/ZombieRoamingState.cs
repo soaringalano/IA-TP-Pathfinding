@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RoamingState : ZombieState
+public class ZombieRoamingState : ZombieState
 {
     Vector3 m_destination = Vector3.zero;
     private float m_arrivedThreshold = 1f;
@@ -12,30 +12,32 @@ public class RoamingState : ZombieState
 
     public override void OnStart()
     {
-        Debug.Log("Roaming State OnStart");
+        //Debug.Log("Roaming State OnStart");
         m_timer = m_patrolInterval;
     }
 
     public override bool CanEnter(IState currentState)
     { 
-        return !m_stateMachine.m_isPreyInSight; 
+        return !m_stateMachine.m_isPreyInSight &&
+            currentState is not ZombieFleeingState;
     }
 
     public override void OnEnter() 
     { 
-        Debug.Log("Zombie Entering Roaming State");
+        //Debug.Log("Zombie Entering Roaming State");
         GenerateRandomDirection();
     }
 
     public override bool CanExit()
     { 
-        return m_stateMachine.m_isPreyInSight; 
+        return m_stateMachine.m_isPreyInSight ||
+            m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR; 
     }
 
     public override void OnExit()
     {
         m_timer = m_patrolInterval;
-        Debug.Log("Zombie Exiting Roaming State");
+        //Debug.Log("Zombie Exiting Roaming State");
     }
 
     public override void OnUpdate()
@@ -81,6 +83,3 @@ public class RoamingState : ZombieState
         }
     }
 }
-
-//m_stateMachine.ZombieAnimator.SetBool("IsRunning", false);
-//m_stateMachine.ZombieAnimator.SetBool("IsWalking", true);

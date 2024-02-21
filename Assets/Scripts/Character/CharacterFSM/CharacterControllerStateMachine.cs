@@ -142,8 +142,8 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
         UpdateAnimatorBoolValue(KEY_STATUS_BOOL_TOUCHGROUND, m_floorTrigger.IsOnFloor);
         //Debug.Log("current velocity:" + CurrentRelativeVelocity / GetCurrentMaxSpeed());
         float maxSpeed = AcceptInput ? GetCurrentMaxSpeedFromInput() : CurrentRelativeVelocity.magnitude;
-        Debug.Log("Current max speed :" + maxSpeed);
-        Debug.Log("Current relative velocity:" + CurrentRelativeVelocity);
+        //Debug.Log("Current max speed :" + maxSpeed);
+        //Debug.Log("Current relative velocity:" + CurrentRelativeVelocity);
         Animator.SetFloat("MoveX", CurrentRelativeVelocity.x / maxSpeed);
         Animator.SetFloat("MoveY", CurrentRelativeVelocity.y / maxSpeed);
         //UpdateEnemies();
@@ -312,9 +312,9 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
 
     public void FixedSet2dRelativeVelocity()
     {
-        Debug.Log("Last position:" + m_lastPosition);
+        //Debug.Log("Last position:" + m_lastPosition);
         Vector3 distance = RB.transform.position - m_lastPosition;
-        Debug.Log("distance : " + distance);
+        //Debug.Log("distance : " + distance);
         CurrentRelativeVelocity = new Vector2(distance.x, distance.z) / Time.fixedDeltaTime;
         m_lastPosition = RB.transform.position;
     }
