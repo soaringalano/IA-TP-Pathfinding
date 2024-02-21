@@ -5,13 +5,16 @@ using UnityEngine.AI;
 
 public class RoamingState : ZombieState
 {
-    private float patrolInterval = 5f;
-    private float timer;
-    
+    Vector3 m_destination = Vector3.zero;
+    private float m_arrivedThreshold = 1f;
+    private float m_patrolInterval = 5f;
+    private float m_timer;
+
     public override void OnStart()
     {
         Debug.Log("Roaming State OnStart");
-        timer = patrolInterval;
+        m_timer = m_patrolInterval;
+        GenerateRandomDirection();
     }
 
     public override bool CanEnter(IState currentState){ return !m_stateMachine.m_isPreyInSight; }
@@ -22,17 +25,17 @@ public class RoamingState : ZombieState
 
     public override void OnExit()
     {
-        timer = patrolInterval;
+        m_timer = m_patrolInterval;
         Debug.Log("Zombie Exiting Roaming State");
     }
 
     public override void OnUpdate()
     {
-        timer -= Time.deltaTime;
-        if (timer <= 0f)
+        m_timer -= Time.deltaTime;
+        if (m_timer <= 0f)
         {
             Patrol();
-            timer = patrolInterval; // Reset the timer
+            m_timer = m_patrolInterval; // Reset the timer
         }
     }
 
@@ -40,21 +43,28 @@ public class RoamingState : ZombieState
 
     void Patrol()
     {
+        if (!HasReachedDestination()) return;
+        GenerateRandomDirection();
+    }
+
+    private void GenerateRandomDirection()
+    {
         Vector3 randomDirection = Random.insideUnitSphere * m_stateMachine.patrolRange;
         randomDirection += m_stateMachine.transform.position;
         NavMeshHit hit;
 
-        int walkableAreaMask = 1 << NavMesh.GetAreaFromName("Walkable"); 
+        int walkableAreaMask = 1 << NavMesh.GetAreaFromName("Walkable");
 
         // Attempt to find a valid sample position within the walkable area of the NavMesh
         if (NavMesh.SamplePosition(randomDirection, out hit, m_stateMachine.patrolRange, walkableAreaMask))
         {
             // Keep the same Y coordinate as the starting position of the agent
-            Vector3 finalPosition = hit.position;
-            finalPosition.y = m_stateMachine.transform.position.y;
+            m_destination = hit.position;
+            //Debug.Log("Final Position: " + m_destination);
+            m_destination.y = m_stateMachine.transform.position.y;
 
             // Set the destination only if the sampled position is valid
-            m_stateMachine.m_agent.SetDestination(finalPosition);
+            m_stateMachine.m_agent.SetDestination(m_destination);
         }
         else
         {
@@ -62,9 +72,12 @@ public class RoamingState : ZombieState
         }
     }
 
-
-
-
+    bool HasReachedDestination()
+    {
+        // Determine if the NPC has reached its destination
+        // This could be based on distance to the destination point
+        return Vector3.Distance(m_stateMachine.transform.position, m_destination) < m_arrivedThreshold;
+    }
 }
 
 //m_stateMachine.ZombieAnimator.SetBool("IsRunning", false);

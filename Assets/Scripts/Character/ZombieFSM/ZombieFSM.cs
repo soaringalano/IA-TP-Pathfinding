@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZombieFSM : AbstractFSM<ZombieState>
+public class ZombieFSM : AbstractStateMachine<ZombieState>
 {
     public Rigidbody RB { get; private set; }
     public Animator ZombieAnimator { get; private set; }
@@ -12,7 +12,6 @@ public class ZombieFSM : AbstractFSM<ZombieState>
 
     public Vector3 m_preyPosition = Vector3.zero;
     public Vector3 m_newDirection = Vector3.zero;
-    private float m_chasingSpeed = 2f;
 
     public Collider outerCollider;
     public Collider innerCollider;
