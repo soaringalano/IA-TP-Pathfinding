@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1704,7 +1704,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.5
+  m_VoxelSize: 0.40666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 51d30b226683c499eafb8fc6101a59fa, type: 2}
   m_BuildHeightMesh: 0
@@ -1865,6 +1865,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FemaleCharacterPBR
       objectReference: {fileID: 0}
+    - target: {fileID: 7647134206250791342, guid: cc91c8ba8b9a34f4d99e70d721f60b64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1984,37 +1988,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319433328}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1341815430
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1341815431}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1341815431
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341815430}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 352.58, y: -0.51, z: 275.1653}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1388399004
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,6 +3419,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 2.17
       objectReference: {fileID: 0}
+    - target: {fileID: 107754370339391316, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3663284515859515276, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
       propertyPath: patrolRange
       value: 600
@@ -3466,9 +3443,13 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 5.92
       objectReference: {fileID: 0}
+    - target: {fileID: 4319984697081018905, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6470857689611497651, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 351.9
+      value: 341.47
       objectReference: {fileID: 0}
     - target: {fileID: 6470857689611497651, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3476,7 +3457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6470857689611497651, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 275.2
+      value: 265.82
       objectReference: {fileID: 0}
     - target: {fileID: 6470857689611497651, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3505,6 +3486,10 @@ PrefabInstance:
     - target: {fileID: 6470857689611497651, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7113932238526527046, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8542117488628818683, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
       propertyPath: m_Speed
@@ -3541,5 +3526,4 @@ SceneRoots:
   - {fileID: 1111853623}
   - {fileID: 1983725865}
   - {fileID: 7028562874616845595}
-  - {fileID: 1341815431}
   - {fileID: 1255355180}

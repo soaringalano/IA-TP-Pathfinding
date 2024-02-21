@@ -202,3 +202,4 @@ MonoBehaviour:
   outerCollider: {fileID: 0}
   innerCollider: {fileID: 0}
   m_agent: {fileID: 0}
+  patrolRange: 30
