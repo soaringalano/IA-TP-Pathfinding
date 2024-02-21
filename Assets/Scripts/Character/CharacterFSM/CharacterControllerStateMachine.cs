@@ -14,7 +14,7 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
     [SerializeField]
     public float m_stunHeight = 10.0f;
 
-    public bool AcceptInput = true;
+    public bool AcceptInput { get; private set; } = false;
 
     public Camera Camera { get; private set; }
 
@@ -27,7 +27,7 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
     [field: SerializeField]
     public float AccelerationValue { get; private set; }
 
-    private Vector2 CurrentRelativeVelocity { get; set; }
+    public Vector2 CurrentRelativeVelocity { get; private set; }
 
     public Vector2 CurrentDirectionalInputs { get; private set; }
 
@@ -81,22 +81,9 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
 
     private Vector2 m_lowestPosition = Vector2.positiveInfinity;
 
-    public Vector3 m_lastPositionOnGround { get; private set; }
-
     public List<AudioSource> m_audioSources;
 
-    public void SetLastPositionOnGround(Vector3 position)
-    {
-        if (position == null)
-        {
-            m_lastPositionOnGround = Vector3.zero;
-        }
-        else
-        {
-            m_lastPositionOnGround = position;
-
-        }
-    }
+    private Vector3 m_lastPosition = Vector3.zero;
 
     //[SerializeField]
     //public CharacterEffectController EffectController;
@@ -133,14 +120,7 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
         }
         m_currentState = m_possibleStates[0];
         m_currentState.OnEnter();
-        if(m_floorTrigger.IsOnFloor)
-        {
-            SetLastPositionOnGround(transform.position);
-        }
-        else
-        {
-            SetLastPositionOnGround(Vector3.zero);
-        }
+        m_lastPosition = new Vector2(RB.transform.position.x, RB.transform.position.z);
     }
 
     protected override void Update()
@@ -153,7 +133,7 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
             m_currentState.OnUpdate();
             TryStateTransition();
         */
-
+        UpdateAnimatorKeyValues();
         base.Update();
     }
 
@@ -161,17 +141,28 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
     {
         UpdateAnimatorBoolValue(KEY_STATUS_BOOL_TOUCHGROUND, m_floorTrigger.IsOnFloor);
         //Debug.Log("current velocity:" + CurrentRelativeVelocity / GetCurrentMaxSpeed());
-        Animator.SetFloat("MoveX", CurrentRelativeVelocity.x / GetCurrentMaxSpeed());
-        Animator.SetFloat("MoveY", CurrentRelativeVelocity.y / GetCurrentMaxSpeed());
+        float maxSpeed = AcceptInput ? GetCurrentMaxSpeedFromInput() : CurrentRelativeVelocity.magnitude;
+        Debug.Log("Current max speed :" + maxSpeed);
+        Debug.Log("Current relative velocity:" + CurrentRelativeVelocity);
+        Animator.SetFloat("MoveX", CurrentRelativeVelocity.x / maxSpeed);
+        Animator.SetFloat("MoveY", CurrentRelativeVelocity.y / maxSpeed);
         //UpdateEnemies();
     }
 
     protected override void FixedUpdate()
     {
         //Debug.Log("Current state:" + m_currentState.GetType());
-        SetDirectionalInputs();
-        m_currentState.OnFixedUpdate();
-        FixedSet2dRelativeVelocity();
+        if(AcceptInput)
+        {
+            SetDirectionalInputs();
+            m_currentState.OnFixedUpdate();
+            FixedSet2dRelativeVelocityFromInput();
+        }
+        else
+        {
+            m_currentState.OnFixedUpdate();
+            FixedSet2dRelativeVelocity();
+        }
     }
 
     // Only called by InAirState to ensure only when in air it's called
@@ -313,27 +304,22 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
         Animator.SetBool(key, value);
     }
 
-    private void FixedSet2dRelativeVelocity()
+    public void FixedSet2dRelativeVelocityFromInput()
     {
-        if(AcceptInput)
-        {
-            Vector3 relativeVelocity = RB.transform.InverseTransformDirection(RB.velocity);
-
-            CurrentRelativeVelocity = new Vector2(relativeVelocity.x, relativeVelocity.z);
-        }
+        Vector3 relativeVelocity = RB.transform.InverseTransformDirection(RB.velocity);
+        CurrentRelativeVelocity = new Vector2(relativeVelocity.x, relativeVelocity.z) / GetCurrentMaxSpeedFromInput();
     }
 
-    private void Set2dRelativeVelocity()
+    public void FixedSet2dRelativeVelocity()
     {
-        if(!AcceptInput)
-        {
-            Vector3 relativeVelocity = RB.transform.InverseTransformDirection(RB.velocity);
-
-            CurrentRelativeVelocity = new Vector2(relativeVelocity.x, relativeVelocity.z);
-        }
+        Debug.Log("Last position:" + m_lastPosition);
+        Vector3 distance = RB.transform.position - m_lastPosition;
+        Debug.Log("distance : " + distance);
+        CurrentRelativeVelocity = new Vector2(distance.x, distance.z) / Time.fixedDeltaTime;
+        m_lastPosition = RB.transform.position;
     }
 
-    public float GetCurrentMaxSpeed()
+    public float GetCurrentMaxSpeedFromInput()
     {
         if (Mathf.Approximately(CurrentDirectionalInputs.magnitude, 0))
         {
@@ -358,9 +344,6 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
 
     public void SetDirectionalInputs()
     {
-        if(!AcceptInput)
-            return;
-
         CurrentDirectionalInputs = Vector2.zero;
 
         if (Input.GetKey(KeyCode.W))

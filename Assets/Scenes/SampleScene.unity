@@ -1821,6 +1821,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 13776156137622096, guid: cc91c8ba8b9a34f4d99e70d721f60b64, type: 3}
+      propertyPath: m_Drag
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 79714105352181544, guid: cc91c8ba8b9a34f4d99e70d721f60b64, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -2119,6 +2123,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1653794616}
   m_SourcePrefab: {fileID: 100100000, guid: cc91c8ba8b9a34f4d99e70d721f60b64, type: 3}
+--- !u!54 &1255355181 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 5914587198749340904, guid: cc91c8ba8b9a34f4d99e70d721f60b64, type: 3}
+  m_PrefabInstance: {fileID: 1255355180}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1319433328
 GameObject:
   m_ObjectHideFlags: 0
@@ -2868,7 +2877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_stunHeight: 10
   AcceptInput: 1
-  <RB>k__BackingField: {fileID: 1653794619}
+  <RB>k__BackingField: {fileID: 1255355181}
   <Animator>k__BackingField: {fileID: 1653794618}
   <AccelerationValue>k__BackingField: 30
   <DecelerationValue>k__BackingField: 1
@@ -2877,7 +2886,7 @@ MonoBehaviour:
   <MaxBackwardVelocity>k__BackingField: 15
   <MaxSideVelocity>k__BackingField: 15
   <InAirAccelerationValue>k__BackingField: 0.2
-  <JumpIntensity>k__BackingField: 500
+  <JumpIntensity>k__BackingField: 1000
   <CommAttackDamage>k__BackingField: 10
   m_floorTrigger: {fileID: 1563125551}
   m_secureFieldOfView: {x: 2.2, y: 80}
@@ -2930,11 +2939,6 @@ MonoBehaviour:
 --- !u!95 &1653794618 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7413344840680693326, guid: cc91c8ba8b9a34f4d99e70d721f60b64, type: 3}
-  m_PrefabInstance: {fileID: 1255355180}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &1653794619 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 6757628184139335599, guid: cc91c8ba8b9a34f4d99e70d721f60b64, type: 3}
   m_PrefabInstance: {fileID: 1255355180}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1655191154

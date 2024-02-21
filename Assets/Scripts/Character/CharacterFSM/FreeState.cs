@@ -33,7 +33,7 @@ public class FreeState : CharacterState
 
     public override void OnUpdate()
     {
-        m_stateMachine.UpdateAnimatorKeyValues();
+        //m_stateMachine.UpdateAnimatorKeyValues();
         base.OnUpdate();
     }
 
@@ -42,14 +42,18 @@ public class FreeState : CharacterState
 
         FixedUpdateRotateWithCamera();
 
-        if (m_stateMachine.CurrentDirectionalInputs == Vector2.zero)
+        if(m_stateMachine.AcceptInput)
         {
-            m_stateMachine.FixedUpdateQuickDeceleration();
-            return;
+            if (m_stateMachine.CurrentDirectionalInputs == Vector2.zero)
+            {
+                m_stateMachine.FixedUpdateQuickDeceleration();
+                return;
+            }
+            Vector2 directionInput = m_stateMachine.CurrentDirectionalInputs;
+            //float speed = velocity.magnitude;
+            ApplyMovementsOnFloorFU(directionInput, m_stateMachine.CurrentRelativeVelocity);
         }
-        Vector2 velocity = m_stateMachine.CurrentDirectionalInputs;
-        //float speed = velocity.magnitude;
-        ApplyMovementsOnFloorFU(velocity);
+
 
         // the higher the speed is, the faster the step sounds
         //float speed = m_stateMachine.GetCurrentMaxSpeed();
@@ -70,20 +74,27 @@ public class FreeState : CharacterState
         */
     }
 
-    private void ApplyMovementsOnFloorFU(Vector2 inputVector2)
+    private void ApplyMovementsOnFloorFU(Vector2 inputVector2, Vector2 velocity2)
     {
-        var vectorOnFloor = Vector3.ProjectOnPlane(m_stateMachine.Camera.transform.forward * inputVector2.y, Vector3.up);
-        vectorOnFloor += Vector3.ProjectOnPlane(m_stateMachine.Camera.transform.right * inputVector2.x, Vector3.up);
-        vectorOnFloor.Normalize();
-
-        m_stateMachine.RB.AddForce(vectorOnFloor * m_stateMachine.AccelerationValue, ForceMode.Acceleration);
-
-        var currentMaxSpeed = m_stateMachine.MaxVelocity;
-
-        if (m_stateMachine.RB.velocity.magnitude > currentMaxSpeed)
+        if(m_stateMachine.AcceptInput)
         {
-            m_stateMachine.RB.velocity = m_stateMachine.RB.velocity.normalized;
-            m_stateMachine.RB.velocity *= currentMaxSpeed;
+            var vectorOnFloor = Vector3.ProjectOnPlane(m_stateMachine.Camera.transform.forward * inputVector2.y, Vector3.up);
+            vectorOnFloor += Vector3.ProjectOnPlane(m_stateMachine.Camera.transform.right * inputVector2.x, Vector3.up);
+            vectorOnFloor.Normalize();
+
+            m_stateMachine.RB.AddForce(vectorOnFloor * m_stateMachine.AccelerationValue, ForceMode.Acceleration);
+
+            var currentMaxSpeed = m_stateMachine.MaxVelocity;
+
+            if (m_stateMachine.RB.velocity.magnitude > currentMaxSpeed)
+            {
+                m_stateMachine.RB.velocity = m_stateMachine.RB.velocity.normalized;
+                m_stateMachine.RB.velocity *= currentMaxSpeed;
+            }
+        }
+        else
+        {
+
         }
     }
 
