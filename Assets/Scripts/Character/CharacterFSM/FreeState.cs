@@ -7,11 +7,11 @@ public class FreeState : CharacterState
 
    // private AudioSource m_clip;
 
-    public FreeState(AudioSource clip)
+    /*public FreeState(AudioSource clip)
     {
-        //m_clip = clip;
+        m_clip = clip;
         m_efxState = EFXState.EWalk;
-    }
+    }*/
 
     public override void OnEnter()
     {

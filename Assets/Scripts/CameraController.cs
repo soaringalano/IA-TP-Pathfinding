@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour
     private void FixedUpdate()
     {
         FixedUpdateCameraLerp();
-        MoveCameraInFrontOfObstructionsFUpdate();
+        //MoveCameraInFrontOfObstructionsFUpdate();
     }
 
     private void FixedUpdateCameraLerp()
