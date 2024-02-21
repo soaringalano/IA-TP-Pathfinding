@@ -12,7 +12,6 @@ public class ZombieFSM : AbstractStateMachine<ZombieState>
 
     public Vector3 m_preyPosition = Vector3.zero;
     public Vector3 m_newDirection = Vector3.zero;
-    private float m_chasingSpeed = 2f;
 
     public Collider outerCollider;
     public Collider innerCollider;

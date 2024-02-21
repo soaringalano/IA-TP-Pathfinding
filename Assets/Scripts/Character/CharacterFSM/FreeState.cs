@@ -7,8 +7,6 @@ public class FreeState : CharacterState
 
    // private AudioSource m_clip;
 
-    private float m_stepTimer = 0.0f;
-
     public FreeState(AudioSource clip)
     {
         //m_clip = clip;
