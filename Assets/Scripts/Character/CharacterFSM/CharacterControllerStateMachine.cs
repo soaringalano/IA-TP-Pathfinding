@@ -113,13 +113,13 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
     protected override void CreatePossibleStates()
     {
         m_possibleStates = new List<CharacterState>();
-        m_possibleStates.Add(new FreeState(m_audioSources[0]));
-        m_possibleStates.Add(new JumpState(m_audioSources[1]));
+        m_possibleStates.Add(new FreeState());// m_audioSources[0]));
+        m_possibleStates.Add(new JumpState());// m_audioSources[1]));
+        m_possibleStates.Add(new AttackState());// m_audioSources[3]));
+        m_possibleStates.Add(new VictoryState());// m_audioSources[5]));
         //m_possibleStates.Add(new InAirState());
         //m_possibleStates.Add(new OnGroundState(m_audioSources[2]));
-        //m_possibleStates.Add(new AttackState(m_audioSources[3]));
         //m_possibleStates.Add(new HitState(m_audioSources[4]));
-        //m_possibleStates.Add(new VictoryState(m_audioSources[5]));
     }
 
     protected override void Start()

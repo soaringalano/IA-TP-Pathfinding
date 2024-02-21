@@ -31,10 +31,10 @@ public class AttackState : CharacterState
         {
             bool onfloor = m_stateMachine.IsInContactWithFloor();
             //Debug.Log("is on floor?:" + onfloor);
-            List<Collider> enemies = m_stateMachine.GetAttackableEnemies();
+            /*List<Collider> enemies = m_stateMachine.GetAttackableEnemies();
             bool canenter = onfloor && enemies != null && enemies.Count > 0;
-            //Debug.Log("Detected enemy amount:" + (enemies==null?0:enemies.Count) + " , can enter attack status : " + canenter);
-            return canenter && Input.GetKeyDown(KeyCode.J);
+            return canenter && Input.GetKeyDown(KeyCode.J);*/
+            return onfloor && Input.GetKeyDown(KeyCode.J);
         }
         return false;
     }

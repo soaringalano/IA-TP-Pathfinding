@@ -166,7 +166,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1ee5a3a8074b22d4f87869fd7db008a7, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -399,7 +399,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7dd5e99032a89a14f95d372741adc8d1, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -737,7 +737,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 26002929d54c64042b876b76bf4d0916, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1511,11 +1511,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_objectToLookAt: {fileID: 1653794615}
-  m_rotationSpeed: 1
+  m_rotationSpeed: 0.1
   m_clampingXRotationValues: {x: 30, y: 75}
   m_minDistance: 10
   m_lerpSpeed: 0.05
-  m_zoomClampValues: {x: 10, y: 30}
+  m_zoomClampValues: {x: 2, y: 30}
   AcceptInput: 1
 --- !u!1 &1101715512
 GameObject:
@@ -2372,7 +2372,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ab6248f2f4566074c99bb404c4ddefb9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2554,7 +2554,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b4535c6ab1ac44e408c73720f1e28ee9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -3218,7 +3218,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b4535c6ab1ac44e408c73720f1e28ee9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -3551,16 +3551,6 @@ Transform:
   - {fileID: 1101715513}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2106666788 stripped
-CapsuleCollider:
-  m_CorrespondingSourceObject: {fileID: 107754370339391316, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
-  m_PrefabInstance: {fileID: 7028562874616845595}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &2106666789 stripped
-CapsuleCollider:
-  m_CorrespondingSourceObject: {fileID: 4319984697081018905, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
-  m_PrefabInstance: {fileID: 7028562874616845595}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2108874890
 GameObject:
   m_ObjectHideFlags: 0
@@ -3689,11 +3679,11 @@ PrefabInstance:
     - target: {fileID: 3663284515859515276, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
       propertyPath: innerCollider
       value: 
-      objectReference: {fileID: 2106666788}
+      objectReference: {fileID: 0}
     - target: {fileID: 3663284515859515276, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
       propertyPath: outerCollider
       value: 
-      objectReference: {fileID: 2106666789}
+      objectReference: {fileID: 0}
     - target: {fileID: 3793672846073048690, guid: 5704ee81d48084c55b250357c1113da1, type: 3}
       propertyPath: m_Name
       value: zombie
