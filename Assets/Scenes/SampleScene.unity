@@ -1512,10 +1512,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_objectToLookAt: {fileID: 1653794615}
   m_rotationSpeed: 1
-  m_clampingXRotationValues: {x: 10, y: 75}
+  m_clampingXRotationValues: {x: 30, y: 75}
   m_minDistance: 10
   m_lerpSpeed: 0.05
-  m_zoomClampValues: {x: 2, y: 20}
+  m_zoomClampValues: {x: 10, y: 30}
   AcceptInput: 1
 --- !u!1 &1101715512
 GameObject:
