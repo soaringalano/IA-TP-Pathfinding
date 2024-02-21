@@ -16,7 +16,10 @@ public class ZombieChasingState : ZombieState
 
     public override bool CanExit()
     {
-        return !m_stateMachine.m_isPreyInSight;
+        //Debug.Log("m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR: " + (m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR));
+        //return !m_stateMachine.m_isPreyInSight ||
+        //    m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR;
+        return true;
     }
 
     public override void OnEnter() 

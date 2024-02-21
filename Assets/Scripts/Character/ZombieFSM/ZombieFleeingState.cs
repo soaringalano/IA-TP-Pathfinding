@@ -1,41 +1,41 @@
-
 using UnityEngine;
 
 public class ZombieFleeingState : ZombieState
 {
-    private float m_arrivedThreshold = 1f;
-  
+    private float m_arrivedThreshold = 0.5f;
 
-    public override void OnStart() 
+    public override void OnStart()
     {
-        Debug.Log("ZombieFleeingState OnStart()"); 
+        Debug.Log("ZombieFleeingState OnStart()");
     }
 
-    public override bool CanEnter(IState currentState)
-    {  
+    public override bool CanEnter(IState currentState)  
+    {
+        Debug.Log("ZombieFleeingState ZombieRunaway CanEnter health: " + m_stateMachine.m_health);
         Debug.Log("ZombieFleeingState ZombieRunaway CanEnter: " + (m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR));
-        return m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR; 
+        return m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR;
     }
 
     public override bool CanExit()
     {
-        Debug.Log("CanExit  ZombieFleeingState State");
+        //Debug.Log("CanExit  ZombieFleeingState State");
         return false;
     }
 
-    public override void OnEnter()
-    { 
+    public override void OnEnter() 
+    {
         Debug.Log("Entering ZombieFleeingState State");
         GetAwayFromPrey();
     }
 
+
     public override void OnExit()
-    {  
-        Debug.Log("Exiting ZombieFleeingState State");  
+    {
+        Debug.Log("Exiting ZombieFleeingState State");
     }
 
     public override void OnUpdate()
-    { 
+    {
         Debug.Log("ZombieFleeingState OnUpdate");
         if (m_stateMachine.HasReachedDestination(m_stateMachine.m_preyPosition, m_arrivedThreshold)) return;
         GetAwayFromPrey();
@@ -43,12 +43,14 @@ public class ZombieFleeingState : ZombieState
 
     private void GetAwayFromPrey()
     {
-        m_stateMachine.m_agent.SetDestination(-m_stateMachine.m_preyPosition);
+        Debug.Log("ZombieFleeingState GetAwayFromPrey");
+        // opposite direction of prey
+        Vector3 direction = m_stateMachine.transform.position - m_stateMachine.m_preyPosition;
+        Vector3 destination = m_stateMachine.transform.position + direction;
+        m_stateMachine.m_agent.SetDestination(destination);
     }
-
     public override void OnFixedUpdate()
-    { 
-        Debug.Log("ZombieFleeingState State OnFixedUpdate"); 
+    {
+        //Debug.Log("ZombieFleeingState State OnFixedUpdate");
     }
-
 }

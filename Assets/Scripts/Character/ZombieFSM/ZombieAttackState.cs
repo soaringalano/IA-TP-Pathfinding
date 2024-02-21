@@ -13,8 +13,11 @@ public class ZombieAttackState : ZombieState
     }
 
     public override bool CanExit()
-    { 
-        return !m_stateMachine.m_isPreyInReach;
+    {
+        //Debug.Log("ZombieAttackState CanExit() : " + (m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR));
+        //return !m_stateMachine.m_isPreyInReach ||
+        //    m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR;
+        return true;
     }
 
     public override void OnEnter()
