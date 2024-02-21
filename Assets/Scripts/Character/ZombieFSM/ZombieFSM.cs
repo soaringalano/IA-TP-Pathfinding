@@ -13,9 +13,6 @@ public class ZombieFSM : AbstractStateMachine<ZombieState>
     public Vector3 m_preyPosition = Vector3.zero;
     public Vector3 m_newDirection = Vector3.zero;
 
-    public Collider outerCollider;
-    public Collider innerCollider;
-
     public NavMeshAgent m_agent;
 
     [SerializeField]
@@ -51,26 +48,10 @@ public class ZombieFSM : AbstractStateMachine<ZombieState>
         //m_possibleStates.Add(new ZombieRunawayState());
     }
 
-    /*
-    public void GoToDirection(Vector3 position)
+    public bool HasReachedDestination(Vector3 destination, float threshold)
     {
-        var direction = position - RB.transform.position;
-        // Rotate horizontally towards the prey
-        var rotation = Quaternion.LookRotation(direction);
-        Quaternion horizintalRotation = Quaternion.Euler(0, rotation.eulerAngles.y, 0);
-        RB.transform.rotation = Quaternion.Slerp(RB.transform.rotation, horizintalRotation, Time.deltaTime * 2.0f);
-
-        // Advance towards the prey
-        var vectorOnFloor = new Vector3(direction.x, 0, direction.z);
-        RB.AddForce(vectorOnFloor * m_chasingSpeed, ForceMode.Acceleration);
-
-        if (direction.magnitude < 0.01f)
-        {
-            Debug.Log("At position.");
-            m_isPreyInSight = false;
-            m_preyPosition = Vector3.zero;
-        }
+        // Determine if the NPC has reached its destination
+        // This could be based on distance to the destination point
+        return Vector3.Distance(transform.position, destination) < threshold;
     }
-    */
-
 }

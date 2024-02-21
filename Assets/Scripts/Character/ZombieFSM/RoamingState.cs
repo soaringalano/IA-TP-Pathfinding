@@ -14,12 +14,18 @@ public class RoamingState : ZombieState
     {
         Debug.Log("Roaming State OnStart");
         m_timer = m_patrolInterval;
-        GenerateRandomDirection();
     }
 
-    public override bool CanEnter(IState currentState){ return !m_stateMachine.m_isPreyInSight; }
+    public override bool CanEnter(IState currentState)
+    { 
+        return !m_stateMachine.m_isPreyInSight; 
+    }
 
-    public override void OnEnter() { Debug.Log("Zombie Entering Roaming State"); }
+    public override void OnEnter() 
+    { 
+        Debug.Log("Zombie Entering Roaming State");
+        GenerateRandomDirection();
+    }
 
     public override bool CanExit(){ return m_stateMachine.m_isPreyInSight; }
 
@@ -43,7 +49,7 @@ public class RoamingState : ZombieState
 
     void Patrol()
     {
-        if (!HasReachedDestination()) return;
+        if (!m_stateMachine.HasReachedDestination(m_destination, m_arrivedThreshold)) return;
         GenerateRandomDirection();
     }
 
@@ -70,13 +76,6 @@ public class RoamingState : ZombieState
         {
             Debug.LogWarning("Failed to find a valid patrol destination.");
         }
-    }
-
-    bool HasReachedDestination()
-    {
-        // Determine if the NPC has reached its destination
-        // This could be based on distance to the destination point
-        return Vector3.Distance(m_stateMachine.transform.position, m_destination) < m_arrivedThreshold;
     }
 }
 

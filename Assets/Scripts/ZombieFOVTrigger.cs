@@ -1,24 +1,25 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ZombieFOVTrigger : MonoBehaviour
 {
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("test"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Debug.Log("Trigger detected with an object on the 'test' layer.");
 
-            if (other == other.GetComponent<ZombieFSM>().outerCollider)
+            if (transform.name == "OuterFOV")
             {
-                Debug.Log("Trigger detected with the 'outerCollider'.");
-                other.GetComponent<ZombieFSM>().m_isPreyInSight = true;
-
+                //Debug.Log("Trigger detected with the 'outerCollider'.");
+                GetComponentInParent<ZombieFSM>().m_isPreyInSight = true;
+                GetComponentInParent<ZombieFSM>().m_preyPosition = other.transform.position;
             }
             
-            else if (other == other.GetComponent<ZombieFSM>().innerCollider)
+            else if (transform.name == "InnerFOV")
             {
-                Debug.Log("Trigger detected with the 'secondCollider'.");
-                other.GetComponent<ZombieFSM>().m_isPreyInReach = true;
+                //Debug.Log("Trigger detected with the 'secondCollider'.");
+                GetComponentInParent<ZombieFSM>().m_isPreyInReach = true;
+                GetComponentInParent<ZombieFSM>().m_preyPosition = other.transform.position;
             }
         }
     }
@@ -26,17 +27,17 @@ public class ZombieFOVTrigger : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         // Check if the outer collider exits the trigger
-        if (other == other.GetComponent<ZombieFSM>().outerCollider)
+        if (transform.name == "OuterFOV")
         {
-            Debug.Log("First collider exited.");
-            other.GetComponent<ZombieFSM>().m_isPreyInSight = false;
+            //Debug.Log("First collider exited.");
+            GetComponentInParent<ZombieFSM>().m_isPreyInSight = false;
         }
 
         // Check if the inner collider exits the trigger
-        if (other == other.GetComponent<ZombieFSM>().innerCollider)
+        if (transform.name == "InnerFOV")
         {
-            Debug.Log("Second collider exited.");
-            other.GetComponent<ZombieFSM>().m_isPreyInReach = false;
+            //Debug.Log("Second collider exited.");
+            GetComponentInParent<ZombieFSM>().m_isPreyInSight = false;
         }
     }
 }
