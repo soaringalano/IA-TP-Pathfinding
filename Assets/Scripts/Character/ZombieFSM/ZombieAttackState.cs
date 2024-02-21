@@ -9,8 +9,7 @@ public class ZombieAttackState : ZombieState
 
     public override bool CanEnter(IState currentState)
     { 
-        return m_stateMachine.m_isPreyInReach &&
-            currentState is not ZombieFleeingState; 
+        return m_stateMachine.m_isPreyInReach; 
     }
 
     public override bool CanExit()

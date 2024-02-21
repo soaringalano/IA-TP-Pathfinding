@@ -20,7 +20,7 @@ public class ZombieFleeingState : ZombieState
     public override bool CanExit()
     {
         Debug.Log("CanExit  ZombieFleeingState State");
-        return true;
+        return false;
     }
 
     public override void OnEnter()

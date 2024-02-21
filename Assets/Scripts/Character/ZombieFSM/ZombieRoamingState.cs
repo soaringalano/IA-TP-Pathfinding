@@ -18,8 +18,7 @@ public class ZombieRoamingState : ZombieState
 
     public override bool CanEnter(IState currentState)
     { 
-        return !m_stateMachine.m_isPreyInSight &&
-            currentState is not ZombieFleeingState;
+        return !m_stateMachine.m_isPreyInSight;
     }
 
     public override void OnEnter() 
