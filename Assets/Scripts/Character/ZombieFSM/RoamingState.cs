@@ -27,7 +27,10 @@ public class RoamingState : ZombieState
         GenerateRandomDirection();
     }
 
-    public override bool CanExit(){ return m_stateMachine.m_isPreyInSight; }
+    public override bool CanExit()
+    { 
+        return m_stateMachine.m_isPreyInSight; 
+    }
 
     public override void OnExit()
     {

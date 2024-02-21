@@ -8,7 +8,7 @@ public class ZombieFOVTrigger : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
 
-            if (transform.name == "OuterFOV")
+            if (transform.name == "OuterFOV" || transform.name == "FrontFOV")
             {
                 //Debug.Log("Trigger detected with the 'outerCollider'.");
                 GetComponentInParent<ZombieFSM>().m_isPreyInSight = true;
@@ -27,17 +27,17 @@ public class ZombieFOVTrigger : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         // Check if the outer collider exits the trigger
-        if (transform.name == "OuterFOV")
+        if (transform.name == "OuterFOV" || transform.name == "FrontFOV")
         {
-            //Debug.Log("First collider exited.");
+            Debug.Log("Far FOV exited.");
             GetComponentInParent<ZombieFSM>().m_isPreyInSight = false;
         }
 
         // Check if the inner collider exits the trigger
         if (transform.name == "InnerFOV")
         {
-            //Debug.Log("Second collider exited.");
-            GetComponentInParent<ZombieFSM>().m_isPreyInSight = false;
+            Debug.Log("Near FOV exited.");
+            GetComponentInParent<ZombieFSM>().m_isPreyInReach = false;
         }
     }
 }
