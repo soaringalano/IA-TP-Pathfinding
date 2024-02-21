@@ -65,7 +65,7 @@ public class AttackState : CharacterState
 
     public override void OnExit()
     {
-        Debug.Log("Exiting state: AttackState\n");
+        //Debug.Log("Exiting state: AttackState\n");
         //m_stateMachine.DisableAttackAnimation();
         Time.timeScale = 1.0f;
     }

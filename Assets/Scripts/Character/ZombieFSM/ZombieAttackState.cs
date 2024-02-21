@@ -15,8 +15,7 @@ public class ZombieAttackState : ZombieState
 
     public override bool CanExit()
     { 
-        return !m_stateMachine.m_isPreyInReach ||
-            m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR;
+        return !m_stateMachine.m_isPreyInReach;
     }
 
     public override void OnEnter()

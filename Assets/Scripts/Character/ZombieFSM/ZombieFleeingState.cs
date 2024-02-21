@@ -8,7 +8,7 @@ public class ZombieFleeingState : ZombieState
 
     public override void OnStart() 
     {
-        //Debug.Log("ZombieFleeingState OnStart()"); 
+        Debug.Log("ZombieFleeingState OnStart()"); 
     }
 
     public override bool CanEnter(IState currentState)
@@ -17,15 +17,16 @@ public class ZombieFleeingState : ZombieState
         return m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR; 
     }
 
+    public override bool CanExit()
+    {
+        Debug.Log("CanExit  ZombieFleeingState State");
+        return true;
+    }
+
     public override void OnEnter()
     { 
         Debug.Log("Entering ZombieFleeingState State");
         GetAwayFromPrey();
-    }
-
-    public override bool CanExit() 
-    { 
-        return true; 
     }
 
     public override void OnExit()

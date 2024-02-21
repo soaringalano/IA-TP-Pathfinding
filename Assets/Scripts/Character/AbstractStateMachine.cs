@@ -49,7 +49,7 @@ public class AbstractStateMachine<T> : MonoBehaviour where T : IState
 
         foreach (var state in m_possibleStates)
         {
-            Debug.Log("State: " + state.GetType());
+            //Debug.Log("State: " + state.GetType());
             if (m_currentState.Equals(state))
             {
                 continue;
