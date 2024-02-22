@@ -14,26 +14,13 @@ public class AttackState : CharacterState
 
     private float m_currentStateTimer = 0.0f;
 
-    //private AudioSource m_clip;
-
-    //public AttackState(AudioSource clip)
-    //{
-    //    m_clip = clip;
-    //    m_efxState = EFXState.EAttack;
-    //}
-
-    /**
-     * if enemies are closing and J is pressed then enter attack state
-     */
     public override bool CanEnter(IState currentState)
     {
         if (currentState is FreeState)
         {
             bool onfloor = m_stateMachine.IsInContactWithFloor();
-            //Debug.Log("is on floor?:" + onfloor);
-            /*List<Collider> enemies = m_stateMachine.GetAttackableEnemies();
-            bool canenter = onfloor && enemies != null && enemies.Count > 0;
-            return canenter && Input.GetKeyDown(KeyCode.J);*/
+
+
             return onfloor && Input.GetKeyDown(KeyCode.J);
         }
         return false;
@@ -46,18 +33,11 @@ public class AttackState : CharacterState
 
     public override void OnStart()
     {
-        //Debug.Log("OnStart: AttackState\n");
+
     }
 
     public override void OnEnter()
     {
-        //Debug.Log("Enter state: AttackState\n");
-        //if (m_clip != null)
-        //{
-        //    m_clip.Play();
-        //}
-        //m_stateMachine.EffectController.PlaySoundFX(GetEFXState(), m_stateMachine.transform.position, 1.0f);
-        //m_stateMachine.EffectController.PlayParticleFX(GetEFXState(), m_stateMachine.transform.position);
         Time.timeScale = 0.6f;
         ActivateAttackTrigger();
         m_currentStateTimer = STATE_EXIT_TIMER;
@@ -65,8 +45,6 @@ public class AttackState : CharacterState
 
     public override void OnExit()
     {
-        //Debug.Log("Exiting state: AttackState\n");
-        //m_stateMachine.DisableAttackAnimation();
         Time.timeScale = 1.0f;
     }
 
@@ -84,5 +62,4 @@ public class AttackState : CharacterState
     {
         m_stateMachine.Animator.SetTrigger(KEY_STATUS_TRIGGER_ATTACK);
     }
-
 }

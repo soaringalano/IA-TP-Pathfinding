@@ -39,14 +39,9 @@ public class EnemyController : MonoBehaviour, IDamageable
         m_characterController = GameObject.Find("MainCharacter").GetComponent<CharacterControllerStateMachine>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        /*if(m_timer <= 0)
-        {
-            gameObject.SetActive(false);
-            Destroy(gameObject);
-        }*/
     }
 
     void FixedUpdate()
@@ -89,15 +84,6 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void OnCollisionStay(Collision collision)
     {
-        /*if (collision.collider.gameObject.name == "MainCharacter")
-        {
-            if (m_life <= 0)
-            {
-                //Destroy(gameObject);
-                return;
-            }
-            m_life -= m_commAttackDamage;
-        }*/
     }
 
     public void OnCollisionExit(Collision collision)

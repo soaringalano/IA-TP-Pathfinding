@@ -20,7 +20,6 @@ public class ZombieFleeingState : ZombieState
 
     public override bool CanExit()
     {
-        //Debug.Log("CanExit  ZombieFleeingState State");
         return false;
     }
 
@@ -46,11 +45,6 @@ public class ZombieFleeingState : ZombieState
     private void GetAwayFromPrey()
     {
         Debug.Log("ZombieFleeingState GetAwayFromPrey");
-        // opposite direction of prey
-        //Vector3 direction = m_stateMachine.transform.position - m_stateMachine.m_preyPosition;
-        //m_destination = m_stateMachine.transform.position + direction;
-        //m_stateMachine.m_lastKnownPreyPosition = m_stateMachine.m_preyPosition;
-        //m_stateMachine.m_agent.SetDestination(m_destination);
 
         Vector3 randomDirection = Random.insideUnitSphere * m_stateMachine.patrolRange;
         Vector3 potentialDestination = m_stateMachine.transform.position + randomDirection - m_stateMachine.m_preyPosition;
@@ -77,6 +71,5 @@ public class ZombieFleeingState : ZombieState
 
     public override void OnFixedUpdate()
     {
-        //Debug.Log("ZombieFleeingState State OnFixedUpdate");
     }
 }

@@ -5,17 +5,8 @@ using UnityEngine;
 public class FreeState : CharacterState
 {
 
-   // private AudioSource m_clip;
-
-    /*public FreeState(AudioSource clip)
-    {
-        m_clip = clip;
-        m_efxState = EFXState.EWalk;
-    }*/
-
     public override void OnEnter()
     {
-        //Debug.Log("Entering free state");
         base.OnEnter();
     }
 
@@ -23,17 +14,10 @@ public class FreeState : CharacterState
     {
         //Debug.Log("Exiting free state");
         base.OnExit();
-        /*
-            if (m_clip != null)
-            {
-                m_clip.Stop();
-            }
-        */
     }
 
     public override void OnUpdate()
     {
-        //m_stateMachine.UpdateAnimatorKeyValues();
         base.OnUpdate();
     }
 
@@ -50,28 +34,8 @@ public class FreeState : CharacterState
                 return;
             }
             Vector2 directionInput = m_stateMachine.CurrentDirectionalInputs;
-            //float speed = velocity.magnitude;
             ApplyMovementsOnFloorFU(directionInput, m_stateMachine.CurrentRelativeVelocity);
         }
-
-
-        // the higher the speed is, the faster the step sounds
-        //float speed = m_stateMachine.GetCurrentMaxSpeed();
-
-        /*
-        if (m_clip != null)
-        {
-            if (speed > 0 && !m_clip.isPlaying)
-            {
-                if (m_stepTimer >= 1 / speed)
-                {
-                    m_clip.Play();
-                    m_stepTimer = 0;
-                }
-            }
-            m_stepTimer += Time.fixedDeltaTime;
-        }
-        */
     }
 
     private void ApplyMovementsOnFloorFU(Vector2 inputVector2, Vector2 velocity2)

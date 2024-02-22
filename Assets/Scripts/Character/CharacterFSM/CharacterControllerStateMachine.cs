@@ -100,19 +100,16 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
     protected override void CreatePossibleStates()
     {
         m_possibleStates = new List<CharacterState>();
-        m_possibleStates.Add(new FreeState());// m_audioSources[0]));
-        m_possibleStates.Add(new JumpState());// m_audioSources[1]));
-        m_possibleStates.Add(new AttackState());// m_audioSources[3]));
-        m_possibleStates.Add(new VictoryState());// m_audioSources[5]));
-        //m_possibleStates.Add(new InAirState());
-        //m_possibleStates.Add(new OnGroundState(m_audioSources[2]));
-        //m_possibleStates.Add(new HitState(m_audioSources[4]));
+        m_possibleStates.Add(new FreeState());
+        m_possibleStates.Add(new JumpState());
+        m_possibleStates.Add(new AttackState());
+        m_possibleStates.Add(new VictoryState());
     }
 
     protected override void Start()
     {
         Camera = Camera.main;
-        //m_rigitBody = GetComponent<Rigidbody>();
+
 
         foreach (CharacterState state in m_possibleStates)
         {
@@ -125,14 +122,7 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
 
     protected override void Update()
     {
-        /*
-            if(!m_floorTrigger.IsOnFloor && m_currentState is not JumpState)
-            {
-                ActivateInAirTrigger();
-            }
-            m_currentState.OnUpdate();
-            TryStateTransition();
-        */
+
         UpdateAnimatorKeyValues();
         base.Update();
     }
@@ -140,18 +130,13 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
     public void UpdateAnimatorKeyValues()
     {
         UpdateAnimatorBoolValue(KEY_STATUS_BOOL_TOUCHGROUND, m_floorTrigger.IsOnFloor);
-        //Debug.Log("current velocity:" + CurrentRelativeVelocity / GetCurrentMaxSpeed());
         float maxSpeed = AcceptInput ? GetCurrentMaxSpeedFromInput() : CurrentRelativeVelocity.magnitude;
-        //Debug.Log("Current max speed :" + maxSpeed);
-        //Debug.Log("Current relative velocity:" + CurrentRelativeVelocity);
         Animator.SetFloat("MoveX", CurrentRelativeVelocity.x / maxSpeed);
         Animator.SetFloat("MoveY", CurrentRelativeVelocity.y / maxSpeed);
-        //UpdateEnemies();
     }
 
     protected override void FixedUpdate()
     {
-        //Debug.Log("Current state:" + m_currentState.GetType());
         if(AcceptInput)
         {
             SetDirectionalInputs();
@@ -269,10 +254,6 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
 
     public List<Collider> GetAttackableEnemies()
     {
-        /**
-         * ray cast detect surrounding objects, each object should be collide trigger and implements trigger method, 
-         * for example, wall's trigger is do nothing but enemy trigger will cause loss of life to both
-         */
 
         if(m_enemies == null || m_enemies.Length == 0)
             return null;
@@ -312,9 +293,7 @@ public class CharacterControllerStateMachine : AbstractStateMachine<CharacterSta
 
     public void FixedSet2dRelativeVelocity()
     {
-        //Debug.Log("Last position:" + m_lastPosition);
         Vector3 distance = RB.transform.position - m_lastPosition;
-        //Debug.Log("distance : " + distance);
         CurrentRelativeVelocity = new Vector2(distance.x, distance.z) / Time.fixedDeltaTime;
         m_lastPosition = RB.transform.position;
     }

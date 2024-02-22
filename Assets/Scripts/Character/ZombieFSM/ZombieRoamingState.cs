@@ -38,16 +38,13 @@ public class ZombieRoamingState : ZombieState
 
     public override bool CanExit()
     {
-        //Debug.Log("ZombieRoamingState CanExit: " + (m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR));
         return m_stateMachine.m_isPreyInSight ||
             m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR; 
-        //return true;
     }
 
     public override void OnExit()
     {
         m_timer = m_patrolInterval;
-        //Debug.Log("Zombie Exiting Roaming State");
     }
 
     public override void OnUpdate()

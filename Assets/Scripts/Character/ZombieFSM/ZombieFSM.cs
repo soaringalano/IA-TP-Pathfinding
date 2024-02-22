@@ -46,7 +46,6 @@ public class ZombieFSM : AbstractStateMachine<ZombieState>
         m_possibleStates = new List<ZombieState>();
         m_possibleStates.Add(new ZombieRoamingState());
         m_possibleStates.Add(new ZombieChasingState());
-        m_possibleStates.Add(new ZombieAttackState());
         m_possibleStates.Add(new ZombieFleeingState());
     }
 

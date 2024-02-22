@@ -8,24 +8,9 @@ public class JumpState : CharacterState
     private const float STATE_EXIT_TIMER = 0.2f;
     private float m_currentStateTimer = 0.0f;
 
-    /*private AudioSource m_clip;
-
-    public JumpState(AudioSource clip)
-    {
-        m_clip = clip;
-        m_efxState = EFXState.EJump;
-    }*/
-
     public override void OnEnter()
     {
         Debug.Log("Enter state: JumpState\n");
-
-        /*if (m_clip != null)
-        {
-            m_clip.Play();
-        }*/
-        //m_stateMachine.EffectController.PlaySoundFX(GetEFXState(), m_stateMachine.transform.position, 1.0f);
-        //m_stateMachine.EffectController.PlayParticleFX(GetEFXState(), m_stateMachine.transform.position);
         m_stateMachine.DisableTouchGround();
         ActivateJumpTrigger();
         //Effectuer le saut
@@ -36,8 +21,6 @@ public class JumpState : CharacterState
     public override void OnExit()
     {
         Debug.Log("Exit state: JumpState\n");
-        //m_stateMachine.DeactivateJumpTrigger();
-        //m_stateMachine.EnableTouchGround();
     }
 
     public override void OnFixedUpdate()

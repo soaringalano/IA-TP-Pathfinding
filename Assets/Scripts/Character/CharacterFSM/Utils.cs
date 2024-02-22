@@ -6,12 +6,6 @@ public class Utils
 
     public const double TO_RADIAN = Math.PI / 180.0;
 
-    // here we apply the rotate matrix to rotate vector on (x, z) plane
-    // the matrix is 
-    // cos(a), -sin(a)
-    // sin(a), cos(a)
-    // so the direction forward(x, y, z) will be 
-    // cos(a) * x - sin(a) * z, y, sin(a) * x + cos(a) * z
     public static Vector3 ROTATE_X_Z(float degree, Vector3 toRotate)
     {
         double cos = Math.Cos(degree * TO_RADIAN);
@@ -26,7 +20,6 @@ public class Utils
         return ret;
     }
 
-    // rotate x z 90 degree
     public static Vector3 ROTATE_X_Z_90D(Vector3 toRotate)
     {
         float cos = 0;
@@ -41,7 +34,6 @@ public class Utils
         return ret;
     }
 
-    // rotate x z -90 degree
     public static Vector3 ROTATE_X_Z_M90D(Vector3 toRotate)
     {
         float cos = 0;
@@ -56,7 +48,6 @@ public class Utils
         return ret;
     }
 
-    // rotate x z 180 degree
     public static Vector3 ROTATE_X_Z_180D(Vector3 toRotate)
     {
         float cos = -1;
