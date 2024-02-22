@@ -9,7 +9,7 @@ public class ZombieAttackState : ZombieState
 
     public override bool CanEnter(IState currentState)
     { 
-        return m_stateMachine.m_isPreyInReach; 
+        return false; 
     }
 
     public override bool CanExit()
@@ -22,7 +22,7 @@ public class ZombieAttackState : ZombieState
 
     public override void OnEnter()
     { 
-        //Debug.Log("Entering Attack State"); 
+        Debug.Log("Entering Attack State"); 
     }
 
     public override void OnExit()

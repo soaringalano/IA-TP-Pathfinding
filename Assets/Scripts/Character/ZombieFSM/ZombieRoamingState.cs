@@ -23,16 +23,25 @@ public class ZombieRoamingState : ZombieState
 
     public override void OnEnter() 
     { 
-        //Debug.Log("Zombie Entering Roaming State");
-        GenerateRandomDirection();
+        Debug.Log("Zombie Entering Roaming State");
+
+        if (m_stateMachine.m_lastKnownPreyPosition != Vector3.zero)
+        {
+            m_destination = m_stateMachine.m_lastKnownPreyPosition;
+            m_stateMachine.m_agent.SetDestination(m_destination);
+        }
+        else
+        {
+            GenerateRandomDirection();
+        }
     }
 
     public override bool CanExit()
     {
         //Debug.Log("ZombieRoamingState CanExit: " + (m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR));
-        //return m_stateMachine.m_isPreyInSight ||
-        //    m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR; 
-        return true;
+        return m_stateMachine.m_isPreyInSight ||
+            m_stateMachine.m_health < ZombieFSM.MIN_HEALTH_TRIGGER_FEAR; 
+        //return true;
     }
 
     public override void OnExit()
@@ -67,16 +76,14 @@ public class ZombieRoamingState : ZombieState
 
         int walkableAreaMask = 1 << NavMesh.GetAreaFromName("Walkable");
 
-        // Attempt to find a valid sample position within the walkable area of the NavMesh
         if (NavMesh.SamplePosition(randomDirection, out hit, m_stateMachine.patrolRange, walkableAreaMask))
         {
-            // Keep the same Y coordinate as the starting position of the agent
             m_destination = hit.position;
-            //Debug.Log("Final Position: " + m_destination);
+            m_stateMachine.m_agent.isStopped = true;
+            m_stateMachine.m_agent.ResetPath();
             m_destination.y = m_stateMachine.transform.position.y;
-
-            // Set the destination only if the sampled position is valid
             m_stateMachine.m_agent.SetDestination(m_destination);
+            m_stateMachine.m_agent.isStopped = false;
         }
         else
         {

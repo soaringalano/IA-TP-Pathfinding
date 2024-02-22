@@ -7,6 +7,8 @@ public class ZombieFSM : AbstractStateMachine<ZombieState>
     public Rigidbody RB { get; private set; }
     public Animator ZombieAnimator { get; private set; }
 
+    public Vector3 m_lastKnownPreyPosition = Vector3.zero;
+
     public Vector3 m_preyPosition = Vector3.zero;
     public Vector3 m_newDirection = Vector3.zero;
 

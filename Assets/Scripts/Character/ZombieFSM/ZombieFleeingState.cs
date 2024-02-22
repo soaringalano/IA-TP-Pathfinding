@@ -1,12 +1,14 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ZombieFleeingState : ZombieState
 {
-    private float m_arrivedThreshold = 0.5f;
+    Vector3 m_destination = Vector3.zero;
+    private float m_arrivedThreshold = 0.1f;
 
     public override void OnStart()
     {
-        Debug.Log("ZombieFleeingState OnStart()");
+        //Debug.Log("ZombieFleeingState OnStart()");
     }
 
     public override bool CanEnter(IState currentState)  
@@ -37,7 +39,7 @@ public class ZombieFleeingState : ZombieState
     public override void OnUpdate()
     {
         Debug.Log("ZombieFleeingState OnUpdate");
-        if (m_stateMachine.HasReachedDestination(m_stateMachine.m_preyPosition, m_arrivedThreshold)) return;
+        if (!m_stateMachine.HasReachedDestination(m_destination, m_arrivedThreshold)) return;
         GetAwayFromPrey();
     }
 
@@ -45,10 +47,34 @@ public class ZombieFleeingState : ZombieState
     {
         Debug.Log("ZombieFleeingState GetAwayFromPrey");
         // opposite direction of prey
-        Vector3 direction = m_stateMachine.transform.position - m_stateMachine.m_preyPosition;
-        Vector3 destination = m_stateMachine.transform.position + direction;
-        m_stateMachine.m_agent.SetDestination(destination);
+        //Vector3 direction = m_stateMachine.transform.position - m_stateMachine.m_preyPosition;
+        //m_destination = m_stateMachine.transform.position + direction;
+        //m_stateMachine.m_lastKnownPreyPosition = m_stateMachine.m_preyPosition;
+        //m_stateMachine.m_agent.SetDestination(m_destination);
+
+        Vector3 randomDirection = Random.insideUnitSphere * m_stateMachine.patrolRange;
+        Vector3 potentialDestination = m_stateMachine.transform.position + randomDirection - m_stateMachine.m_preyPosition;
+
+        NavMeshHit hit;
+
+        int walkableAreaMask = 1 << NavMesh.GetAreaFromName("Walkable");
+
+        if (NavMesh.SamplePosition(potentialDestination, out hit, m_stateMachine.patrolRange, walkableAreaMask))
+        {
+            m_stateMachine.m_agent.isStopped = true;
+            m_stateMachine.m_agent.ResetPath();
+            m_destination = hit.position;
+            m_destination.y = m_stateMachine.transform.position.y;
+            m_stateMachine.m_agent.SetDestination(m_destination);
+            m_stateMachine.m_agent.isStopped = false;
+        }
+        else
+        {
+            Debug.LogWarning("Failed to find a valid patrol destination.");
+            GetAwayFromPrey();
+        }
     }
+
     public override void OnFixedUpdate()
     {
         //Debug.Log("ZombieFleeingState State OnFixedUpdate");
